@@ -20,9 +20,6 @@ pipeline {
             steps {
                 sh 'printenv'
             }
-        }
-    }
-}
 agent {
         docker { image 'node:7-alpine' }
     }
@@ -32,4 +29,5 @@ agent {
                 sh 'node --version'
             }
         }
-    }
+    } 
+}
