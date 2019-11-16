@@ -1,23 +1,24 @@
-pipeline { 
+pipeline {
     agent any 
-    options {
-        skipStagesAfterUnstable()
+    environment {
+        // Using returnStdout
+        CC = """${sh(
+                returnStdout: true,
+                script: 'echo "clang"'
+            )}""" 
+        // Using returnStatus
+        EXIT_STATUS = """${sh(
+                returnStatus: true,
+                script: 'exit 1'
+            )}"""
     }
     stages {
-        stage('Build') { 
-            steps { 
-                sh 'make' 
+        stage('Example') {
+            environment {
+                DEBUG_FLAGS = '-g'
             }
-        }
-        stage('Test'){
             steps {
-                sh 'make check'
-                junit 'reports/**/*.xml' 
-            }
-        }
-        stage('Deploy') {
-            steps {
-                sh 'make publish'
+                sh 'printenv'
             }
         }
     }
