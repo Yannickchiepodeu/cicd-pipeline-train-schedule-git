@@ -20,8 +20,7 @@ pipeline {
             steps {
                 sh 'printenv'
             }
-agent {
-        docker { image 'node:7-alpine' }
+    docker { image 'node:7-alpine' }
     }
     stages {
         stage('Test') {
